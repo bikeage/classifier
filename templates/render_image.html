@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <title>Upload Image</title>
+
+    <h2> Uploaded?</h2>
+    <img src="{{url_for('uploads', filename=image_name)}}">
+    
+{% endblock %}
+
