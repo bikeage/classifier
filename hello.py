@@ -5,9 +5,9 @@ to be replaced with a custom neural net once I have the time.
 """
 import os
 
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
-from flask import send_from_directory
+from img_rec import get_predictions
 
 UPLOAD_FOLDER = 'static/uploads/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -18,6 +18,7 @@ app.secret_key = 'monkey'
 
 
 def allowed_file(filename):
+    # validated filenames
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -25,11 +26,14 @@ def allowed_file(filename):
 @app.route('/eliot', methods=['GET', 'POST'])
 def dummy():
     # dummy page for troubleshooting.
+    if request.method == 'POST':
+        get_predictions('static/uploads/2014-05-31_08.16.21.jpg')
     return render_template('index.html')
 
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    # file uploader
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -51,4 +55,15 @@ def upload_file():
 
 @app.route('/<filename>', methods=['GET', 'POST'])
 def uploaded_file(filename):
-    return render_template('render_image.html', filename=UPLOAD_FOLDER+filename)
+    # routes to a page to display the uploaded file.
+    return render_template('render_image.html',
+                           filename=UPLOAD_FOLDER+filename)
+
+
+@app.route('/<filename>', methods=['GET', 'POST'])
+def run_classifier(filename):
+    pass
+
+
+if __name__ == "__main__":
+    app.run()
