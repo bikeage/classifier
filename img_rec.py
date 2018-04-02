@@ -6,8 +6,8 @@ from keras.applications import resnet50
 model = resnet50.ResNet50()
 
 # Load the image file, resizing it to 224x224 pixels (required by this model)
-img = image.load_img("bay.jpg", target_size=(224, 224))
-img2 = image.load_img("t2.jpg", target_size=(224, 224))
+img = image.load_img("static/uploads/lake.jpg", target_size=(224, 224))
+#img2 = image.load_img("t2.jpg", target_size=(224, 224))
 
 # Convert the image to a numpy array
 x = image.img_to_array(img)
@@ -28,3 +28,14 @@ print("This is an image of:")
 
 for imagenet_id, name, likelihood in predicted_classes[0]:
     print(" - {}: {:2f} likelihood".format(name, likelihood))
+
+def get_predictions(pict):
+    img = image.load_img(pict, target_size=(224,224))
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x = resnet50.preprocess_input(x)
+    predictions = model.predict(x)
+    predicted_classes = resnet50.decode_predictions(predictions, top=5)
+    print("This is an image of:")
+    for imagenet_id, name, likelihood in predicted_classes[0]:
+        print(" - {}: {:2f} likelihood".format(name, likelihood))
