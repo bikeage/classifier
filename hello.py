@@ -7,7 +7,7 @@ from flask import Flask, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 
-UPLOAD_FOLDER = 'uploads/'
+UPLOAD_FOLDER = 'static/uploads/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
@@ -22,7 +22,7 @@ def allowed_file(filename):
 
 @app.route('/eliot', methods=['GET', 'POST'])
 def dummy():
-    return render_template('uploader.html')
+    return render_template('index.html')
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -48,6 +48,6 @@ def upload_file():
 #@app.route('/view', methods=['GET', 'POST'])
 @app.route('/uploads/<filename>', methods=['GET', 'POST'])
 def uploaded_file( filename ):
-    return render_template('render_image.html', filename='uploads/'+filename)
+    return render_template('render_image.html', filename='/static/uploads/'+filename)
     #return send_from_directory(app.config['UPLOAD_FOLDER'],
     #                           filename)

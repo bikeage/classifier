@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
     <title>Upload Image</title>
-
-    <h2> Uploaded?</h2>
-    <h2>{{ filename }}</h2>
-    <img src={{ filename }} alt="Camera shy" height="200" width="200">
-
+    <h2>Image: {{ filename }}</h2>
+    <img src={{ filename }} height="200" width="200">
     <form method="post" action="/">
-    <input type="submit" value="Classify_img" name="Classify"/>
+    <input type="submit" value="Classify" name="Classify_image"/>
 
 {% endblock %}
