@@ -1,4 +1,6 @@
-"""This is a flask fron end for an image classifier, Resnet50 at first.
+"""classifier front end.
+
+This is a flask fron end for an image classifier, Resnet50 at first.
 to be replaced with a custom neural net once I have the time.
 """
 import os
@@ -22,6 +24,7 @@ def allowed_file(filename):
 
 @app.route('/eliot', methods=['GET', 'POST'])
 def dummy():
+    # dummy page for troubleshooting.
     return render_template('index.html')
 
 
@@ -45,9 +48,7 @@ def upload_file():
                                     filename=filename))
     return render_template('uploader.html')
 
-#@app.route('/view', methods=['GET', 'POST'])
-@app.route('/uploads/<filename>', methods=['GET', 'POST'])
-def uploaded_file( filename ):
-    return render_template('render_image.html', filename='/static/uploads/'+filename)
-    #return send_from_directory(app.config['UPLOAD_FOLDER'],
-    #                           filename)
+
+@app.route('/<filename>', methods=['GET', 'POST'])
+def uploaded_file(filename):
+    return render_template('render_image.html', filename=UPLOAD_FOLDER+filename)
