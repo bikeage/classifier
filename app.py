@@ -24,7 +24,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
+'''
 @app.route('/eliot', methods=['GET', 'POST'])
 def dummy():
     # dummy page for troubleshooting.
@@ -32,7 +32,7 @@ def dummy():
         #get_predictions('static/uploads/2014-05-31_08.16.21.jpg')
         return render_template('view_predictions.html')
     return render_template('index.html')
-
+'''
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
@@ -63,23 +63,17 @@ def uploaded_file(filename):
         #get_predictions(UPLOAD_FOLDER+filename)
         preds = get_predictions(UPLOAD_FOLDER+filename)
         print(preds)
-        return render_template('view_predictions.html',filename=filename, prediction =preds)
-        #preds= preds
-        #print('FILENAME', filename)
-        #filename= filename
-        #print('FILENAME: '+filename+' PREDICTIONS: '+ preds)
-        #return render_template(display_predictions(filename, preds))
-
+        return render_template('view_predictions.html',
+                               prediction =preds,
+                               filename=UPLOAD_FOLDER+filename)
     return render_template('render_image.html',
                            filename=UPLOAD_FOLDER+filename)
 
 
 @app.route('/<filename>', methods=['GET', 'POST'])
 def display_predictions(filename, preds):
-    #return render_template('index.html')
     return render_template('view_predictions.html')
 
 
 if __name__ == "__main__":
-    #app.run(debug=True)
     app.run()

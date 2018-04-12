@@ -7,13 +7,7 @@
       which will in turn provide a list of classifications, with probabilities for the given image</p>
     <img src={{ filename }} height="200" width="200">
     <form method="post">
-    <input type="submit" value="Classify" name="Classify_image"/>
-    <!-- <ul>   -->
-    <!-- {% for user in users %}
-    <li><a href="{{ user.url }}">{{ user.username }}</a></li>
-    {% endfor %}
-    </ul> -->
-
-    <!-- <p>This is a: {{ preds }}</p> -->
-
+    <!-- <input type="submit" value="Classify" name="Classify_image"/> -->
+    <h1>View Predictions</h1>
+    <p>This is a: {{ prediction }}</p>
 {% endblock %}
