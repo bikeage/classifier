@@ -5,6 +5,8 @@ to be replaced with a custom neural net once I have the time.
 """
 import os
 
+from flask_bootstrap import Bootstrap
+
 from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 from img_rec import get_predictions
@@ -28,7 +30,7 @@ def dummy():
     # dummy page for troubleshooting.
     if request.method == 'POST':
         #get_predictions('static/uploads/2014-05-31_08.16.21.jpg')
-        return render_template('render_image.html')
+        return render_template('view_predictions.html')
     return render_template('index.html')
 
 
@@ -60,7 +62,8 @@ def uploaded_file(filename):
     if request.method == 'POST':
         #get_predictions(UPLOAD_FOLDER+filename)
         preds = get_predictions(UPLOAD_FOLDER+filename)
-        print(type(preds))
+        print(preds)
+        return render_template('view_predictions.html',filename=filename, prediction =preds)
         #preds= preds
         #print('FILENAME', filename)
         #filename= filename
@@ -78,4 +81,5 @@ def display_predictions(filename, preds):
 
 
 if __name__ == "__main__":
+    #app.run(debug=True)
     app.run()
